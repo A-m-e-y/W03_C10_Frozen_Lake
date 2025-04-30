@@ -152,3 +152,11 @@ endmodule
 | Reusability   | Hard to parallelize | Fully reusable in every update |
 
 ---
+
+# 4. Ask it to generate System Verilog code for the HW implementation.
+
+- A detailed HW implementation of this problem is provided in this GitHub repo: [LINK](https://github.com/A-m-e-y/Frozen_Lake_HW_Accelerator)
+- Detailed documentation is provided in the `README.md` file of the repo.
+- The repo contains fully working Verilog code for the HW Accelerator, along with a testbench to verify its functionality.
+- The TB is written using cocotb framework.
+- For more details, please refer to the `README.md` file in the repo.
