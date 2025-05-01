@@ -160,3 +160,45 @@ endmodule
 - The repo contains fully working Verilog code for the HW Accelerator, along with a testbench to verify its functionality.
 - The TB is written using cocotb framework.
 - For more details, please refer to the `README.md` file in the repo.
+
+---
+
+# Challenge #11: GPU Acceleration
+- To implement GPU acceleration for the Q-learning algorithm in FrozenLake, I have used a library called `CuPy`, which provides GPU-accelerated operations similar to NumPy.
+- `Frozen_Lake_Q_Learning.py` is the CPU implementation that runs the Q-learning algorithm on the CPU using `NumPy` library.
+- `Frozen_Lake_Q_Learning_GPU.py` is the 1-to-1 translation of CPU implementation but on GPU using the `CuPy` library.
+- `Frozen_Lake_Q_Learning_GPU_Batched.py` is the batched version of the GPU implementation, which runs multiple episodes in parallel on the GPU.
+- The batched version is significantly faster than the single episode version, as it takes advantage of the parallel processing capabilities of the GPU.
+
+## Performance Comparison
+### ``Frozen_Lake_Q_Learning.py`` (CPU)
+```Bash
+❯ python3 Frozen_Lake_Q_Learning.py -t
+Average runtime for train_q_learning(): 3.6815 seconds over 10 runs
+Average runtime for update_q_value(): 1.0229 seconds over 10 runs
+
+```
+
+### ``Frozen_Lake_Q_Learning_GPU.py`` (GPU)
+```Bash
+❯ python3 Frozen_Lake_Q_Learning_GPU.py -t
+Average runtime for train_q_learning_gpu(): 54.4583 seconds over 10 runs
+Average runtime for update_q_value_gpu(): 29.9269 seconds over 10 runs
+
+```
+
+### ``Frozen_Lake_Q_Learning_GPU_Batched.py`` (GPU Batched)
+```Bash
+❯ python3 Frozen_Lake_Q_Learning_GPU_Batched.py -t
+Average runtime for train_q_learning_gpu_batched(): 64.6975 seconds over 10 runs
+Average runtime for batch_update_q_values(): 3.4555 seconds over 10 runs
+
+```
+
+## Conclusion of Challenge #11
+- A pure Python (NumPy) implementation of Q-learning for FrozenLake ran in ~3.7 seconds (training) with ~1.0 second spent in Q-value updates.
+- A direct 1-to-1 GPU port using CuPy surprisingly increased training time to ~54.5 seconds, with Q-value updates alone taking ~30 seconds.
+- The slowdown was caused by per-step GPU kernel launches and frequent CPU-GPU data transfers, especially during argmax() and .get() calls.
+- A batched GPU version was developed to process all Q-value updates at once per episode, reducing GPU update time to ~3.4 seconds total, but training still took ~64.7 seconds overall.
+- The environment loop (env.step()), which remains on the CPU and executes sequentially, became the dominant bottleneck.
+- Key takeaway: GPU acceleration only delivers speedup when applied to large, parallelizable computations—not when most of the time is spent on CPU-bound logic like environment interaction.
