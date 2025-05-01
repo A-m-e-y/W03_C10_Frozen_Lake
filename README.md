@@ -16,6 +16,8 @@ Course: HW for AI &amp; ML, Week 3 Challenge 10, Identifying “computational bo
 - Key takeaway is that GPU acceleration only delivers speedup when applied to large, parallelizable computations—not when most of the time is spent on CPU-bound logic like environment interaction.
 - To check out more details, like CPU vs GPU runtime and conclusion of this exercise, please click [here](#challenge-11-gpu-acceleration).
 
+---
+
 # Challenge #10: Identifying “computational bottlenecks” in the FrozenLake problem
 # 1. Identify the computational bottlenecks in the code.
 
