@@ -1,6 +1,21 @@
 # W03_C10_Frozen_Lake
 Course: HW for AI &amp; ML, Week 3 Challenge 10, Identifying “computational bottlenecks” in the FrozenLake code from https://github.com/ronanmmurphy/Q-Learning-Algorithm
 
+## TLDR
+### Challenge #10: 
+- FrozenLake is a classic reinforcement learning (RL) environment, which models a simple grid world where an agent must reach a goal while avoiding hazards.
+- The Q-learning algorithm is a popular RL algorithm that learns the optimal action-value function for an agent in an environment.
+- The main bottlenecks in the Q-learning implementation for FrozenLake are calculating and updating the Q-values, which can be computationally expensive. (Details about all bottlenecks are provided below.)
+- Here, we try to identify the computational bottlenecks in the FrozenLake code and propose a hardware accelerator to speed up the Q-value update process.
+- The proposed hardware accelerator is a simple module that takes a vector of Q-values and returns the maximum Q-value and its corresponding action index.
+- The hardware accelerator is implemented in this repo: [LINK](https://github.com/A-m-e-y/Frozen_Lake_HW_Accelerator)
+- Detailed documentation is provided in the `README.md` file of the repo.
+
+### Challenge #11:
+- To implement GPU acceleration for the Q-learning algorithm in FrozenLake, I have used a library called `CuPy`, which provides GPU-accelerated operations similar to `NumPy`.
+- Key takeaway is that GPU acceleration only delivers speedup when applied to large, parallelizable computations—not when most of the time is spent on CPU-bound logic like environment interaction.
+- To check out more details, like CPU vs GPU runtime and conclusion of this exercise, please click [here](#challenge-11-gpu-acceleration).
+
 # Challenge #10: Identifying “computational bottlenecks” in the FrozenLake problem
 # 1. Identify the computational bottlenecks in the code.
 
